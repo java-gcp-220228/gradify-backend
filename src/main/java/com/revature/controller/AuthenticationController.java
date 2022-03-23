@@ -42,5 +42,8 @@ public class AuthenticationController implements Controller {
     @Override
     public void mapEndpoints(Javalin app) {
         app.post("/login", login);
+        app.get("/test", (ctx) -> {
+            ctx.result("TESTING NEW ENDPOINT");
+        });
     }
 }
