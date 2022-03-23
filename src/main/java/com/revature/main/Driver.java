@@ -20,7 +20,7 @@ public class Driver {
 
         map(app, new AuthenticationController(), new ExceptionController(), new AssignmentController());
 
-        app.start(8080);
+        app.start(8081);
     }
 
     public static void map(Javalin app, Controller... controllers) {
