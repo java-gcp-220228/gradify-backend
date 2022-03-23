@@ -12,7 +12,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.apache.tika.Tika;
 
-import javax.xml.ws.Response;
 import java.io.InputStream;
 import java.util.List;
 
