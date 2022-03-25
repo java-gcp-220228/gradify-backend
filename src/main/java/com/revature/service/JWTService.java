@@ -13,15 +13,8 @@ public class JWTService {
 
     private Key key;
 
-    // Instance initialization block
-    // This will run immediately after the constructor
-//    {
-//        byte[] secret = "my_secret_password".getBytes();
-//        key = Keys.hmacShaKeyFor(secret); // Create a key using
-//    }
     private JWTService() {
         byte[] secret = "my_secret_password_asdfasdfjkljclkvjl13432k2312jlkj3941809df".getBytes();
-        // key = Keys.secretKeyFor(SignatureAlgorithm.HS384); // Create a key using our secret password
         key = Keys.hmacShaKeyFor(secret);
     }
 
@@ -53,7 +46,6 @@ public class JWTService {
 
             return token;
         } catch(JwtException e) {
-            e.printStackTrace();
             throw new UnauthorizedResponse("JWT was invalid");
         }
 

@@ -20,7 +20,7 @@ public class AuthenticationController implements Controller {
         this.jwtService = JWTService.getInstance();
     }
 
-    private Handler login = (ctx) -> {
+    private Handler login = ctx -> {
         System.out.println("Login endpoint invoked");
 
         LoginDTO loginInfo = ctx.bodyAsClass(LoginDTO.class);

@@ -66,6 +66,10 @@ public class AssignmentDao {
             Assignment a = new Assignment(aId, assignmentName, gr, student, trainer);
 
             con.commit();
+
+            pstmt.close();
+            pstmt2.close();
+
             return a;
         }
     }
@@ -104,6 +108,9 @@ public class AssignmentDao {
             Assignment assignment = new Assignment(assignmentId, dto.getAssignmentName(), 0, student, null);
 
             con.commit(); // commit the transaction
+
+            pstmt1.close();
+            pstmt2.close();
 
             return assignment;
         }
@@ -150,6 +157,8 @@ public class AssignmentDao {
 
                 assignments.add(a);
             }
+
+            pstmt.close();
 
             return assignments;
         }
@@ -199,6 +208,8 @@ public class AssignmentDao {
                     assignments.add(a);
                 }
 
+                pstmt.close();
+
                 return assignments;
             }
         }
@@ -218,10 +229,13 @@ public class AssignmentDao {
             if (rs.next()) {
                 InputStream is = rs.getBinaryStream("assignment_image");
 
+                pstmt.close();
                 return is;
             } else {
+                pstmt.close();
                 return null;
             }
+
         }
     }
 }

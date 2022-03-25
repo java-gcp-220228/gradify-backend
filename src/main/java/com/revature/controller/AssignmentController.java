@@ -32,8 +32,7 @@ public class AssignmentController implements Controller {
     // 2. Request headers
     // 3. Path parameters (1 is the path parameter) /clients/1
     // 4. Query parameters /clients?myQueryParam=something&myOtherQueryParam=somethingelse
-    private Handler getAllAssignments = (ctx) -> {
-        // { "Bearer", "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJqYW5lX2RvZSIsInVzZXJfaWQiOjIsInVzZXJfcm9sZSI6InN0dWRlbnQifQ.CzfkxW1qjmCRKU3egxb9ILYXpVlKA-dFIBt9t4Im4_FOBsahb-DkiMxGmVT_fHIC" }
+    private Handler getAllAssignments = ctx -> {
         String jwt = ctx.header("Authorization").split(" ")[1];
 
         Jws<Claims> token = this.jwtService.parseJwt(jwt);
@@ -50,7 +49,7 @@ public class AssignmentController implements Controller {
     // Authorization logic
     // 1. User role should be student (logged in)
     // 2. user_id should match with who is actually logged in
-    private Handler addAssignment = (ctx) -> {
+    private Handler addAssignment = ctx -> {
         String jwt = ctx.header("Authorization").split(" ")[1];
 
         Jws<Claims> token = this.jwtService.parseJwt(jwt);
@@ -82,7 +81,7 @@ public class AssignmentController implements Controller {
         ctx.json(getDto);
     };
 
-    private Handler gradeAssignment = (ctx) -> {
+    private Handler gradeAssignment = ctx -> {
         String jwt = ctx.header("Authorization").split(" ")[1];
         Jws<Claims> token = this.jwtService.parseJwt(jwt);
 
@@ -102,7 +101,7 @@ public class AssignmentController implements Controller {
         ctx.json(assignment);
     };
 
-    private Handler getSpecificStudentAssignments = (ctx) -> {
+    private Handler getSpecificStudentAssignments = ctx -> {
         String jwt = ctx.header("Authorization").split(" ")[1];
         Jws<Claims> token = this.jwtService.parseJwt(jwt);
 
@@ -120,19 +119,8 @@ public class AssignmentController implements Controller {
         ctx.json(dtos);
     };
 
-    private Handler getAssignmentImage = (ctx) -> {
-//        String jwt = ctx.header("Authorization").split(" ")[1];
-//        Jws<Claims> token = this.jwtService.parseJwt(jwt);
-//
+    private Handler getAssignmentImage = ctx -> {
         String userId = ctx.pathParam("user_id");
-//
-//        if (!(token.getBody().get("user_role").equals("student") || token.getBody().get("user_role").equals("trainer"))) {
-//            throw new UnauthorizedResponse("You are not allowed to access this endpoint because you are not a student or trainer");
-//        }
-//
-//        if (token.getBody().get("user_role").equals("student") && !("" + token.getBody().get("user_id")).equals(userId)) {
-//            throw new UnauthorizedResponse("You are a student, but not accessing an assignment image that belongs to you");
-//        }
 
         String assignmentId = ctx.pathParam("assignment_id");
         InputStream image = this.assignmentService.getAssignmentImage(assignmentId, userId);
