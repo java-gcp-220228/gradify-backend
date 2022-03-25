@@ -80,12 +80,11 @@ public class AssignmentService {
         return assignmentDTOs;
     }
 
-    public InputStream getAssignmentImage(String assignmentId, String userId) throws SQLException, ImageNotFoundException {
+    public InputStream getAssignmentImage(String assignmentId) throws SQLException, ImageNotFoundException {
         try {
             int aId = Integer.parseInt(assignmentId);
-            int uId = Integer.parseInt(userId);
 
-            InputStream is = this.assignmentDao.getAssignmentImage(aId, uId);
+            InputStream is = this.assignmentDao.getAssignmentImage(aId);
 
             if (is == null) {
                 throw new ImageNotFoundException("Assignment id " + assignmentId + " does not have an image");

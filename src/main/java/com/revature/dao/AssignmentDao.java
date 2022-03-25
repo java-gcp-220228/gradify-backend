@@ -212,15 +212,14 @@ public class AssignmentDao {
             }
         }
 
-    public InputStream getAssignmentImage(int aId, int uId) throws SQLException {
+    public InputStream getAssignmentImage(int aId) throws SQLException {
         try (Connection con = ConnectionUtility.getConnection()) {
             String sql = "SELECT a.assignment_image " +
                     "FROM assignments a " +
-                    "WHERE a.id = ? AND a.student_id = ?";
+                    "WHERE a.id = ?";
 
             try(PreparedStatement pstmt = con.prepareStatement(sql)) {
                 pstmt.setInt(1, aId);
-                pstmt.setInt(2, uId);
 
                 ResultSet rs = pstmt.executeQuery();
 

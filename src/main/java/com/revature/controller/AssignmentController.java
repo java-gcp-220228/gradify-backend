@@ -120,10 +120,8 @@ public class AssignmentController implements Controller {
     };
 
     private Handler getAssignmentImage = ctx -> {
-        String userId = ctx.pathParam("user_id");
-
         String assignmentId = ctx.pathParam("assignment_id");
-        InputStream image = this.assignmentService.getAssignmentImage(assignmentId, userId);
+        InputStream image = this.assignmentService.getAssignmentImage(assignmentId);
 
         Tika tika = new Tika();
         String mimeType = tika.detect(image);
@@ -137,7 +135,7 @@ public class AssignmentController implements Controller {
         app.get("/assignments", getAllAssignments); // trainers
         app.get("/users/{user_id}/assignments", getSpecificStudentAssignments); // specific student
         app.post("/users/{user_id}/assignments", addAssignment); // specific student
-        app.get("/users/{user_id}/assignments/{assignment_id}/image", getAssignmentImage);
+        app.get("/assignments/{assignment_id}/image", getAssignmentImage);
         app.patch("/assignments/{assignment_id}", gradeAssignment); // trainers
     }
 }
